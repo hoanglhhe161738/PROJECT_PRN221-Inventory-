@@ -1,0 +1,50 @@
+﻿@page
+@model PROJECT_PRN221.Pages.Pages.LoginModel
+@{
+}
+
+<style>
+
+    .item {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2em;
+    }
+
+        .item label {
+            width: 8em;
+        }
+
+        .item input {
+            flex: 1;
+        }
+
+    .nav-bar {
+        width: 30%;
+        height: 400px;
+        align-content: center;
+    }
+</style>
+<div>
+    <h1>LOGIN</h1>
+    <h3>@Model.message</h3>
+
+    <div class="nav-bar">
+        <form method="post">
+            <div>
+                <div class="item">
+                    <label>User name:</label>
+                    <input type="text" name="username" />
+                </div>
+                <div class="item">
+                    <label>Password:</label>
+                    <input type="text" name="password" />
+                </div>
+                <div >
+                    <input type="submit"  name="login" value="LOGIN"/>
+                    <a href="/Pages/Register">Do you have account?</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

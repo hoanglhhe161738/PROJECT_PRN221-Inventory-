@@ -1,0 +1,47 @@
+﻿@page
+@model PROJECT_PRN221.Pages.Pages.AccountManagerModel
+@{
+}
+
+
+    <h1>List Employee</h1>
+    <table width="500px">
+        <thead>
+            <tr>
+                <td>Account</td>
+                <td>User name</td>
+                <td>Passowrd</td>
+                <td>Role</td>
+                <td>Admin</td>
+                <td>Employee</td>
+                <td>Save</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.users)
+            {
+                <tr>
+                <form method="post">
+                <td><input value="@item.AId" name="aid" readonly="readonly"/></td>
+                <td>@item.Username</td>
+                <td>@item.Password</td>
+                <td>
+                    @((item.RIdNavigation == null) ? "chưa có chức vụ gì" : item.RIdNavigation.RName)
+                </td>
+                <td> 
+                    <input type="radio" name="role" value="Admin"/>
+                </td>
+                <td>
+                    <input type="radio" name="role" value="Employee" />
+                </td>
+                <td>
+                    <input type="submit" value="Save"/>
+                </td>
+                </form>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+<a href="/Pages/HomeView">Back to home</a>
+

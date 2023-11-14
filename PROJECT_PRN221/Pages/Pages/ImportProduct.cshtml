@@ -1,0 +1,80 @@
+﻿@page
+@model PROJECT_PRN221.Pages.Pages.ImportProductModel
+@{
+}
+<style>
+
+    .item {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2em;
+    }
+
+        .item label {
+            width: 8em;
+        }
+
+        .item input {
+            flex: 1;
+        }
+
+    .nav-bar {
+        width: 30%;
+        height: 400px;
+        align-content: center;
+    }
+</style>
+
+    <div class="nav-bar">
+        <h1>Nhập Thêm hàng</h1>
+        <div class="nav-bar-component" style="width:80%; height:80%; align-content:center">
+            <form method="post">
+
+            <div class="item">
+                <select name="CateoryID">
+                    @foreach (var item in Model.categoryIds)
+                    {
+                        <option value="@item.CategeryId" selected="@((Model.SelectedCategory == item.CategeryId) ? "selected" : null)">@item.CategoryName</option>
+                    }
+                </select>
+            </div>
+            <div class="item">
+                <select name="SupplierID">
+                    @foreach (var supplier in Model.suppliers)
+                {
+                        <option value="@supplier.SupplierId" selected="@((Model.SelectedSupplier == supplier.SupplierId) ? "selected" : null)">@supplier.SupplierName</option>
+                }
+            </select>
+            </div>
+            <input type="submit" value="Tra cứu sản phẩm"/>
+            </form>
+        
+        <form method="post" asp-page-handler="Add">
+        @if(Model.products != null)
+        {
+            <div class="item">
+                <select name="ProductID">
+                    @foreach (var item in Model.products)
+                    {
+                        <option value="@item.ProductId" selected="@((Model.SelectedProduct == item.ProductId) ? "selected" : null)">@item.ProductName</option>
+                    }
+                </select>
+            </div>
+        }
+           
+      
+
+            <div class="item">
+                <label>Số lượng:</label>
+                <input type="text" name="amount" />
+            </div>
+            <div style="margin-top:2em;">
+                <input type="submit" value="Save" />
+                <a href="/Pages/Inventory">Về kho</a>
+            </div>
+            </form>
+            <a href="/Pages/HomeView">Back to home</a>
+
+        </div>
+    </div>
+

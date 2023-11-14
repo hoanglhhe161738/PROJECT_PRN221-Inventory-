@@ -1,0 +1,63 @@
+﻿@page 
+@model PROJECT_PRN221.Pages.Pages.HomeViewModel
+@{
+}
+
+
+<div>
+    <h3>@Model.message</h3>
+    <div>
+        <a method="Get" asp-page-handler="CheckAuth">Inventory</a>
+        <a method="Get" asp-page-handler="CheckAuth2">Account Manager</a>
+        <a href="/Pages/Login">Log out</a>
+    </div>
+    <div>
+        <form method="post">
+            Category:
+            <select name="categoryName">
+                @foreach (var category in Model.categories)
+                {
+                    <option value="@category.CategoryName" selected="@((Model.SelectedCategory == category.CategoryName) ? "selected" : null)">@category.CategoryName</option>
+                }
+            </select>
+            <input type="submit" name="Search" value="Search" />
+        </form>
+    </div>
+    <div style="margin-top:2em">
+        @if (Model.products is null)
+        {
+            <div>Choose category</div>
+        }
+        else
+        {
+
+            <table border="1" width="700px">
+                <thead style="text-align:center">
+                    <tr class="tr_table">
+                        <td class="td_table">ProductID</td>
+                        <td class="td_table">ProductName</td>
+                        <td class="td_table">CategoryName</td>
+                        <td class="td_table">SupplierName</td>
+                        <td class="td_table">Unit</td>
+                        <td class="td_table">Price</td>
+                        <td class="td_table">Sale</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.products)
+                    {
+                        <tr class="tr_table">
+                            <td class="td_table">@product.ProductId</td>
+                            <td class="td_table">@product.ProductName</td>
+                            <td class="td_table">@product.Category.CategoryName</td>
+                            <td class="td_table">@product.Supplier.SupplierName</td>
+                            <td class="td_table">@product.Quantity</td>
+                            <td class="td_table">@product.Price</td>
+                            <td class="td_table"><a href="ReportSales/@product.ProductId/@product.Quantity">Sale</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

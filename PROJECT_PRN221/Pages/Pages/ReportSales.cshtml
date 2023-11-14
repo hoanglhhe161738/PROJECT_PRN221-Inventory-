@@ -1,0 +1,104 @@
+﻿@page "/Pages/ReportSales/{ProductId}/{Quantity}"
+@model PROJECT_PRN221.Pages.Pages.ReportSalesModel
+@{
+}
+<style>
+
+    .item {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2em;
+    }
+
+        .item label {
+            width: 8em;
+        }
+
+        .item input {
+            flex: 1;
+        }
+
+    .nav-bar {
+        width: 80%;
+        height: 100%;
+        align-content: center;
+    }
+</style>
+<div style="display:flex; flex-direction:row;">
+    <div style="width:50em; height:80%;">
+        @if (Model.product != null)
+        {
+            <div>
+                <h1>Sản phẩm</h1>
+                <h3>@Model.massage</h3>
+
+                <div class="nav-bar">
+                    <form method="Post">
+                    <div>
+                        <div class="item">
+                            <label>Product ID:</label>
+                            <input type="text" name="productid" readonly="readonly" value="@Model.product.ProductId" />
+                        </div>
+                        <div class="item">
+                            <label>Product name:</label>
+                            <input type="text" name="name" readonly="readonly" value="@Model.product.ProductName" />
+                        </div>
+                        <div class="item">
+                            <label>Category:</label>
+                            <input type="text" name="category" readonly="readonly" value="@Model.product.Category.CategoryName" />
+                        </div>
+                        <div class="item">
+                            <label>Supplier:</label>
+                            <input type="text" name="supllier" readonly="readonly" value="@Model.product.Supplier.SupplierName" />
+                        </div>
+                        <div class="item">
+                            <label>Quantity:</label>
+                            <input type="text" name="quantity" value="1" />
+                        </div>
+                        <div class="item">
+                            <label>Unit price:</label>
+                            <input type="text" name="unit" readonly="readonly" value="@Model.product.Price" />
+                        </div>
+
+                    </div>
+                    <input type="submit" value="Bán" />
+                    </form>
+                </div>
+                <a href="/Pages/HomeView">Back to home</a>
+            </div>
+        }
+
+    </div>
+    <div style="width:50em; height:80%;">
+        <h3>Doanh số</h3>
+        @if (Model.billOutputs != null)
+        {
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Sản phẩm</td>
+                        <td>Ngày bán</td>
+                        <td>Số lượng</td>
+                        <td>tổng giá</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.billOutputs)
+                    {
+                        <tr>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.DateSell</td>
+                            <td>@item.Amount</td>
+                            <td>@item.Amount * @item.Product.Price</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h1>Chưa có sản phẩm được bán</h1>
+        }
+    </div>
+</div>

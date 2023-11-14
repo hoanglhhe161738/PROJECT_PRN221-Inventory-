@@ -1,0 +1,34 @@
+﻿@page
+@model PROJECT_PRN221.Pages.Pages.InventoryModel
+@{
+}
+
+<div style="margin-top:2em">
+        <table border="1">
+            <thead style="text-align:center">
+                <tr class="tr_table">
+                    <td class="td_table">Bill Import ID</td>
+                    <td class="td_table">Import Date</td>
+                    <td class="td_table">Số lượng</td>
+                    <td class="td_table">Phân loại</td>
+                    <td class="td_table">Nhà cung cấp</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.billImports)
+                {
+                    <tr class="tr_table">
+                        <td class="td_table">@item.BillImportId</td>
+                        <td class="td_table">@item.DateImport</td>
+                        <td class="td_table">@item.Amount</td>
+                        <td class="td_table">@item.Category.CategoryName</td>
+                        <td class="td_table">@item.Supplier.SupplierName</td>
+                    </tr>
+                }
+            </tbody>
+            
+
+        </table>
+        <a href="/Pages/ImportProduct">Nhập thêm hàng</a>
+        <a href="/Pages/HomeView">Back to home</a>
+</div>

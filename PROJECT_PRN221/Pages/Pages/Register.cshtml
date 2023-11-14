@@ -1,0 +1,54 @@
+﻿@page
+@model PROJECT_PRN221.Pages.Pages.RegisterModel
+@{
+}
+<style>
+    
+    .item {
+        display:flex;
+        flex-direction:row;
+        margin-top:2em;
+    }
+
+    .item label {
+        width:8em;
+    }
+
+    .item input {
+        flex:1;
+    }
+    .nav-bar{
+        width:30%;
+        height:400px;
+        
+        align-content:center;
+    }
+</style>
+<form method="post">
+    <div class="nav-bar">
+        <h1>REGISTER</h1>
+        <h3>@Model.message</h3>
+        <div class="nav-bar-component" style="width:80%; height:80%; align-content:center">
+            <div class="item">
+                <label>User name:</label>
+                <input type="text" name="username" />
+            </div>
+            <div class="item">
+                <label>Password:</label>
+                <input type="text" name="password" />
+            </div>
+            <div class="item">
+                <label>Re-password:</label>
+                <input type="text" name="re_password" />
+            </div>
+            <div style="margin-top:2em;">
+                <input type="submit" value="Đăng ký" />
+                <a href="/Pages/Login">You already have account?</a>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+   
+</script>
+

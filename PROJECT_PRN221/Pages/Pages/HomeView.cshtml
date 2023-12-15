@@ -3,27 +3,55 @@
 @{
 }
 
+<style>
+    .result table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
 
-<div>
-    <h3>@Model.message</h3>
-    <div>
-        <a method="Get" asp-page-handler="CheckAuth">Inventory</a>
-        <a method="Get" asp-page-handler="CheckAuth2">Account Manager</a>
-        <a href="/Pages/Login">Log out</a>
-    </div>
-    <div>
-        <form method="post">
-            Category:
-            <select name="categoryName">
-                @foreach (var category in Model.categories)
-                {
-                    <option value="@category.CategoryName" selected="@((Model.SelectedCategory == category.CategoryName) ? "selected" : null)">@category.CategoryName</option>
-                }
+    .result th,
+    .result td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        width: auto;
+    }
+</style>
+<div style="margin-top:5em; align-content:center" >
+    <h3 style="margin-bottom:2em">@Model.message</h3>
+    
+    <div style="display:flex; flex-direction:row; width:81em; justify-content:space-between">
+        <div style="display:flex; flex-direction:row; width:30em; justify-content:space-between">
+            <form method="post" asp-page-handler="Filter">
+                Category:
+                <select name="categoryName">
+                    <option value="ALL">ALL</option>
+                    @foreach (var category in Model.categories)
+                    {
+                        <option value="@category.CategoryName" selected="@((Model.SelectedCategory == category.CategoryName) ? "selected" : null)">@category.CategoryName</option>
+                    }
+                </select>
+                <input type="submit" name="Filter" value="Filter" />
+            </form>
+
+            <form method="post" asp-page-handler="SearchByName">
+                <input type="text" name="ProductName" />
+                <input type="submit" name="Search" value="Search" />
+            </form>
+        </div>
+        
+        <form method="post" asp-page-handler="SortBy">
+            <label>Sory By:</label>
+            <select name="sortby">
+                <option>Sort by Name (A-Z) </option>
+                <option>Sort by Name (Z-A) </option>
+                <option>Sort by Price (Low-High) </option>
+                <option>Sort by Price (High-Low)</option>
             </select>
-            <input type="submit" name="Search" value="Search" />
         </form>
     </div>
-    <div style="margin-top:2em">
+    <div style="margin-top:2em" class="result">
         @if (Model.products is null)
         {
             <div>Choose category</div>
@@ -31,7 +59,7 @@
         else
         {
 
-            <table border="1" width="700px">
+            <table border="0" width="700px">
                 <thead style="text-align:center">
                     <tr class="tr_table">
                         <td class="td_table">ProductID</td>
@@ -40,6 +68,7 @@
                         <td class="td_table">SupplierName</td>
                         <td class="td_table">Unit</td>
                         <td class="td_table">Price</td>
+                        <td class="td_table">Delete</td>
                         <td class="td_table">Sale</td>
                     </tr>
                 </thead>
@@ -53,6 +82,7 @@
                             <td class="td_table">@product.Supplier.SupplierName</td>
                             <td class="td_table">@product.Quantity</td>
                             <td class="td_table">@product.Price</td>
+                            <td class="td-table"><a method="Post" asp-page-handler="Delete" asp-route-productId="@product.ProductId">Delete</a></td>
                             <td class="td_table"><a href="ReportSales/@product.ProductId/@product.Quantity">Sale</a></td>
                         </tr>
                     }

@@ -24,6 +24,7 @@ namespace PROJECT_PRN221.Pages.Pages
         public void OnGet()
         {
             getdata();
+            message = "Product Managenent";
             return;
         }
 
@@ -59,6 +60,23 @@ namespace PROJECT_PRN221.Pages.Pages
             }
             return this.Page();
         }
+        public IActionResult OnPostDelete(int productId)
+        {
+            var bill_output = _dbcontext.BillOutputs.Where(b => b.ProductId == productId).ToArray();
+            _dbcontext.BillOutputs.RemoveRange(bill_output);
+            var pro = _dbcontext.Products.Where(p=> p.ProductId == productId).FirstOrDefault();
+            if (pro != null)
+            {
+                _dbcontext.Products.Remove(pro);
+                _dbcontext.SaveChanges();
+                getdata();
+                return this.Page();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         public IActionResult OnGetCheckAuth2()
         {
             getdata();
@@ -88,12 +106,39 @@ namespace PROJECT_PRN221.Pages.Pages
             return this.Page();
         }
 
-        public void OnPost(string categoryName)
+        public IActionResult OnPostFilter(string categoryName)
         {
             SelectedCategory = categoryName;
             categories = _dbcontext.CategoryIds.Include(c => c.Products).ToList();
-            products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).Where(p => p.Category.CategoryName == categoryName).OrderByDescending(p => p.DateExpiration).ToList();
 
+            if (categoryName == "ALL")
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).OrderByDescending(p => p.DateExpiration).ToList();
+            }
+            else
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).Where(p => p.Category.CategoryName == categoryName ).OrderByDescending(p => p.DateExpiration).ToList();
+            }
+
+            return this.Page();
+        }
+        public IActionResult OnPostSearchByName(string ProductName)
+        {
+            categories = _dbcontext.CategoryIds.Include(c => c.Products).ToList();
+            
+            if (ProductName == string.Empty)
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).OrderByDescending(p => p.DateExpiration).ToList();
+            }
+            else
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).Where(p => p.ProductName == ProductName).OrderByDescending(p => p.DateExpiration).ToList();
+            }
+            if(products == null)
+            {
+                return NotFound() ;
+            }
+            return this.Page();
         }
     }
     }

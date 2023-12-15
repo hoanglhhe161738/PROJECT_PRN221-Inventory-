@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PROJECT_PRN221.Models
+namespace PROJECT_PRN211.Models
 {
     public partial class Grocery_DatabaseContext : DbContext
     {
@@ -30,8 +30,8 @@ namespace PROJECT_PRN221.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server=ADMIN;database=Grocery_Database;uid=SQL_DB_PRN221;pwd=12345678;TrustServerCertificate=True");
+                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                optionsBuilder.UseSqlServer(config.GetConnectionString("Northwind"));
             }
         }
 

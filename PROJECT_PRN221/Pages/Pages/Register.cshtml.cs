@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PROJECT_PRN221.Models;
+using PROJECT_PRN211.Models;
 
-namespace PROJECT_PRN221.Pages.Pages
+namespace PROJECT_PRN211.Pages.Pages
 {
     public class RegisterModel : PageModel
     {

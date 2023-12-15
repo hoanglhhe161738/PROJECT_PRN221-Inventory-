@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using PROJECT_PRN221.Models;
+using PROJECT_PRN211.Models;
 using System.Text;
 
-namespace PROJECT_PRN221.Pages.Pages
+namespace PROJECT_PRN211.Pages.Pages
 {
 
     public class HomeViewModel : PageModel

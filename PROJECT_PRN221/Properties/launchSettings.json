@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "PROJECT_PRN221": {
+    "PROJECT_PRN211": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PROJECT_PRN221.Models
+namespace PROJECT_PRN211.Models
 {
     public partial class BillImport
     {

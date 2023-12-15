@@ -43,12 +43,14 @@
         
         <form method="post" asp-page-handler="SortBy">
             <label>Sory By:</label>
-            <select name="sortby">
-                <option>Sort by Name (A-Z) </option>
-                <option>Sort by Name (Z-A) </option>
-                <option>Sort by Price (Low-High) </option>
-                <option>Sort by Price (High-Low)</option>
+            <select name="value" onchange="onSortChange()">
+                <option value="name_des">Sort by Name (A-Z) </option>
+                <option value="name_incre">Sort by Name (Z-A) </option>
+                <option value="price_h_L">Sort by Price (Low-High) </option>
+                <option value="price_L_h">Sort by Price (High-Low)</option>
             </select>
+            <input type="submit" name="Sort" value="Sort" />
+
         </form>
     </div>
     <div style="margin-top:2em" class="result">
@@ -90,4 +92,10 @@
             </table>
         }
     </div>
+    <script>
+        function onSortChange() {
+            var selectedValue = document.getElementById("sortby").value;
+            //window.open.
+        }
+    </script>
 </div>

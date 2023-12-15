@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PROJECT_PRN221.Models;
 using System.Text;
 
@@ -57,6 +58,26 @@ namespace PROJECT_PRN221.Pages.Pages
                         return this.Page();
                     }
                 }
+            }
+            return this.Page();
+        }
+        [HttpGet]
+        public IActionResult OnPostSortBy(string value)
+        {
+            categories = _dbcontext.CategoryIds.Include(c => c.Products).ToList();
+            if (value == "name_des")
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).OrderByDescending(p => p.ProductName).ToList();
+            }else if(value == "name_incre"){
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).ToList();
+
+            }else if(value == "price_h_L")
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).OrderByDescending(p => p.Price).ToList();
+            }
+            else
+            {
+                products = _dbcontext.Products.Include(p => p.Category).Include(p => p.Supplier).OrderByDescending(p => p.DateExpiration).ToList();
             }
             return this.Page();
         }
